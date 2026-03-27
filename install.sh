@@ -33,5 +33,8 @@ link "$REPO_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh
 echo "==> wezterm"
 link "$REPO_DIR/wezterm/wezterm.lua" "$HOME/.config/wezterm/wezterm.lua"
 
+echo "==> claude"
+link "$REPO_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+
 echo ""
 echo "Done. Existing files were backed up with a .bak suffix."
