@@ -15,6 +15,11 @@ keybind = ctrl+shift+down=resize_split:down,20
 
 window-save-state = always
 
+# window-decoration = none
+window-padding-x = 10
+window-padding-y = 10,0
+
 # theme = <name-from-ghostty-+list-themes>
 theme = Catppuccin Macchiato
-background-opacity = 0.95
+background-opacity = 0.9
+

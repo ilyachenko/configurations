@@ -30,5 +30,8 @@ link "$REPO_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 echo "==> ghostty"
 link "$REPO_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 
+echo "==> wezterm"
+link "$REPO_DIR/wezterm/wezterm.lua" "$HOME/.config/wezterm/wezterm.lua"
+
 echo ""
 echo "Done. Existing files were backed up with a .bak suffix."
