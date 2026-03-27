@@ -37,6 +37,16 @@ config.hide_tab_bar_if_only_one_tab = true
 -- Restore window state on startup
 config.native_macos_fullscreen_mode = true
 
+-- Ctrl+Click to open links (works inside tmux)
+config.mouse_bindings = {
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "CTRL",
+		action = act.OpenLinkAtMouseCursor,
+		mouse_reporting = true,
+	},
+}
+
 -- Keybindings
 config.keys = {
 	-- Shift+Enter → ESC + Enter (same as ghostty keybind)

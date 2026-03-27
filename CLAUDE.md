@@ -37,8 +37,9 @@ ln -s ~/dev/configurations/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
 - Prefix + `H/J/K/L` for pane resizing (repeatable)
 - Prefix + `C-c` opens VS Code in current pane path
 - Status bar: session/window/pane index, current mode, time in Europe/Lisbon and Europe/Warsaw
-- Plugins via TPM: `tmux-resurrect` (manual save/restore) and `tmux-continuum` (auto-save every 15min, auto-restore on start)
+- Plugins via TPM: `tmux-resurrect` (manual save/restore), `tmux-continuum` (auto-save every 15min, auto-restore on start), `tmux-fzf-url` (extract and open URLs)
   - `prefix + Ctrl-s` — save session, `prefix + Ctrl-r` — restore manually
+  - `prefix + u` — extract URLs from pane into fzf, select to open in browser
 
 After editing, apply changes without restarting tmux:
 ```bash
@@ -57,6 +58,7 @@ tmux source-file ~/.tmux.conf
 - Shift+Enter → ESC+Enter (matches Ghostty)
 - Cmd+Alt+T toggles always-on-top
 - Ctrl+Shift+Arrows for pane resize
+- Ctrl+Click opens URLs (works inside tmux via `mouse_reporting = true`)
 
 ### Claude Code statusline (`claude/statusline.md`)
 - Command-based statusline config for `~/.claude/settings.json`
