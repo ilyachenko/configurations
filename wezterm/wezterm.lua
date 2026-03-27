@@ -132,6 +132,12 @@ config.keys = {
 		mods = "LEADER|SHIFT",
 		action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
+	-- Cmd+Left/Right → beginning/end of line (Home/End equivalent)
+	{ key = "LeftArrow", mods = "CMD", action = act.SendKey({ key = "a", mods = "CTRL" }) },
+	{ key = "RightArrow", mods = "CMD", action = act.SendKey({ key = "e", mods = "CTRL" }) },
+	-- Option+Left/Right → jump by word
+	{ key = "LeftArrow", mods = "OPT", action = act.SendString("\x1bb") },
+	{ key = "RightArrow", mods = "OPT", action = act.SendString("\x1bf") },
 	-- Pane resize (mirrors tmux prefix+H/J/K/L concept, but direct in wezterm)
 	{ key = "LeftArrow", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Left", 5 }) },
 	{ key = "RightArrow", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Right", 5 }) },
