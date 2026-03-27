@@ -65,3 +65,9 @@ tmux source-file ~/.tmux.conf
 - Shortens directory names via `~/.zsh_custom_paths.txt` (format: `full_path:short_name`, one per line)
 - Shows: `<dir> (branch) ➜ <model> | <output_style> ctx:<remaining>% 7d:<weekly_usage>%`
 - Git branch in green (clean) or yellow (dirty)
+
+### Claude Code permissions (`~/.claude/settings.json`)
+
+The following permission rules should be present in the user's global `~/.claude/settings.json` under `permissions.allow`:
+
+- `WebFetch(domain:github.com)` — allow web access to github.com without prompting
