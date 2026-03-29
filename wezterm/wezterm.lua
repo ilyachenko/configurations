@@ -59,8 +59,8 @@ end)
 config.color_scheme = "Catppuccin Macchiato"
 
 -- Opacity
-config.window_background_opacity = 0.75
-config.macos_window_background_blur = 20
+config.window_background_opacity = 0.85
+config.macos_window_background_blur = 25
 
 -- Font (inherits system default; set explicitly if needed)
 -- config.font = wezterm.font("JetBrains Mono")
