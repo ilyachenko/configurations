@@ -62,9 +62,8 @@ config.color_scheme = "Catppuccin Macchiato"
 config.window_background_opacity = 0.85
 config.macos_window_background_blur = 25
 
--- Font (inherits system default; set explicitly if needed)
--- config.font = wezterm.font("JetBrains Mono")
--- config.font_size = 13.0
+-- Font
+config.font_size = 13.0
 
 -- Padding (matches ghostty: 10px x, 10px top, 0 bottom)
 config.window_padding = {
