@@ -56,7 +56,7 @@ wezterm.on("window-resized", function(window)
 end)
 
 -- Theme
-config.color_scheme = "Catppuccin Macchiato"
+config.color_scheme = "Kanagawa (Gogh)"
 
 -- Opacity
 config.window_background_opacity = 0.85
