@@ -15,6 +15,7 @@
 ### WezTerm Copying
 - Copy mode → `Ctrl + Shift + X`
 - Quick select mode → `Ctrl + Shift + Space`
+- Copy + clear selection → `Ctrl + Shift + C`
 
 ---
 

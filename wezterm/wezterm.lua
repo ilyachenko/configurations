@@ -137,6 +137,15 @@ config.keys = {
 	-- Option+Left/Right → jump by word
 	{ key = "LeftArrow", mods = "OPT", action = act.SendString("\x1bb") },
 	{ key = "RightArrow", mods = "OPT", action = act.SendString("\x1bf") },
+	-- Copy and clear selection
+	{
+		key = "c",
+		mods = "CTRL|SHIFT",
+		action = act.Multiple({
+			act.CopyTo("Clipboard"),
+			act.ClearSelection,
+		}),
+	},
 	-- Pane resize (mirrors tmux prefix+H/J/K/L concept, but direct in wezterm)
 	{ key = "LeftArrow", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Left", 5 }) },
 	{ key = "RightArrow", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Right", 5 }) },
