@@ -74,6 +74,11 @@
 
 ---
 
+## 🤖 Claude Code Integration
+- Resume last Claude session → `Ctrl + b` then `Ctrl + g`
+
+---
+
 ## ✏️ Terminal Editing (Shell)
 
 - Delete after cursor → `Ctrl + K`
