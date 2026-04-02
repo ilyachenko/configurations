@@ -14,7 +14,7 @@ Run the automated installer from the repo root:
 ./install.sh
 ```
 
-This creates symlinks for tmux, ghostty, and wezterm, backing up any existing files as `.bak`.
+This creates symlinks for tmux, ghostty, wezterm, mc, and gitui, backing up any existing files as `.bak`.
 
 Install TPM for tmux plugins (required once per machine):
 ```bash
@@ -59,6 +59,14 @@ tmux source-file ~/.tmux.conf
 - Cmd+Alt+T toggles always-on-top
 - Ctrl+Shift+Arrows for pane resize
 - Ctrl+Click opens URLs (works inside tmux via `mouse_reporting = true`)
+
+### Midnight Commander (`mc/ini`)
+- Skin: `modarin256-defbg` (avoids ANSI color remapping conflicts with Catppuccin)
+- Symlinked to `~/.config/mc/ini`
+
+### gitui (`gitui/theme.ron`)
+- Catppuccin Macchiato theme using hex colors (bypasses ANSI remapping)
+- Symlinked to both `~/.config/gitui/theme.ron` and `~/Library/Application Support/gitui/theme.ron` (macOS uses the latter)
 
 ### Claude Code statusline (`claude/statusline.md`)
 - Command-based statusline config for `~/.claude/settings.json`

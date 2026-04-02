@@ -33,6 +33,13 @@ link "$REPO_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh
 echo "==> wezterm"
 link "$REPO_DIR/wezterm/wezterm.lua" "$HOME/.config/wezterm/wezterm.lua"
 
+echo "==> mc"
+link "$REPO_DIR/mc/ini" "$HOME/.config/mc/ini"
+
+echo "==> gitui"
+link "$REPO_DIR/gitui/theme.ron" "$HOME/.config/gitui/theme.ron"
+link "$REPO_DIR/gitui/theme.ron" "$HOME/Library/Application Support/gitui/theme.ron"
+
 echo "==> claude"
 link "$REPO_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 
