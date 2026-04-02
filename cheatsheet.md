@@ -17,6 +17,12 @@
 - Quick select mode → `Ctrl + Shift + Space`
 - Copy + clear selection → `Ctrl + Shift + C`
 
+### WezTerm Line Navigation
+- Beginning of line → `Cmd + ←`
+- End of line → `Cmd + →`
+- Jump word left → `Option + ←`
+- Jump word right → `Option + →`
+
 ---
 
 ## 🔗 Opening Links
@@ -47,6 +53,7 @@
 
 ### Navigate Panes
 - Switch panes → `Ctrl + b` then `← ↑ ↓ →`
+- Switch panes (fast, no prefix) → `Alt + h / j / k / l`
 
 ### Resize Panes
 - Resize → `Ctrl + b` then `H / J / K / L`
