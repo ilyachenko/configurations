@@ -67,6 +67,9 @@
 - Previous → `Ctrl + b` then `p`
 - Go to window → `Ctrl + b` then `0–9`
 
+### Close
+- Close window → `Ctrl + b` then `&`
+
 ---
 
 ## 💻 VS Code Integration
@@ -83,6 +86,7 @@
 
 - Delete after cursor → `Ctrl + K`
 - Delete whole line → `Ctrl + U`
+- Open current command in `$EDITOR` → `Ctrl + X, E`
 
 ---
 
