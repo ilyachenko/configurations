@@ -15,10 +15,10 @@
 
 ## Profile mapping
 
-Profile labels and colors are defined in `~/.claude/statusline-profiles.conf` (local, not committed).
+Profile labels and colors are defined in `claude/statusline-profiles.conf` (local, gitignored).
 See `claude/statusline-profiles.conf.example` for the format. When setting up on a new machine,
-ask Claude to install the statusline — it will read the profiles conf and hardcode the correct
-values into the script/settings.
+copy the example, fill in your real profile dir names, then ask Claude to install the statusline —
+it will read the conf and hardcode the correct values into the script/settings.
 
 ---
 
@@ -141,4 +141,4 @@ Add directly to each profile's `settings.json`. Claude generates this from the s
 - `jq` — JSON parsing (`brew install jq`)
 - `git` — branch detection
 - `~/.zsh_custom_paths.txt` — optional, for directory shortening
-- `~/.claude/statusline-profiles.conf` — profile label/color mapping (see example)
+- `claude/statusline-profiles.conf` — profile label/color mapping (gitignored; copy from example)
