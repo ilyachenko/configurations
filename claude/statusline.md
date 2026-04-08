@@ -22,6 +22,17 @@ it will read the conf and hardcode the correct values into the script/settings.
 
 ---
 
+## New machine setup
+
+1. Clone the repo and symlink configs (see `install.sh`)
+2. Copy the profile mapping: `cp claude/statusline-profiles.conf.example claude/statusline-profiles.conf`
+3. Edit `claude/statusline-profiles.conf` — replace generic names with your real `CLAUDE_CONFIG_DIR` patterns
+4. Ask Claude to install the statusline: _"Install the statusline from claude/statusline.md into each profile's settings.json, reading profile labels from claude/statusline-profiles.conf"_
+5. Claude will create/update the script file for each profile and point `settings.json` to it
+6. Verify the script is executable: `ls -la ~/.cc-*/statusline-command.sh`
+
+---
+
 ## Setup
 
 Two options: script file (recommended, easier to edit) or inline JSON command.
