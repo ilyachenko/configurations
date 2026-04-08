@@ -74,6 +74,19 @@ tmux source-file ~/.tmux.conf
 - Shows: `<dir> (branch) ➜ <model> | <output_style> ctx:<remaining>% 7d:<weekly_usage>%`
 - Git branch in green (clean) or yellow (dirty)
 
+### Claude Code multiple instances
+
+Multiple isolated Claude Code profiles via `CLAUDE_CONFIG_DIR` aliases in `~/.zshrc`:
+
+```zsh
+alias cc-personal='CLAUDE_CONFIG_DIR=~/.cc-personal claude'
+alias cc-work='CLAUDE_CONFIG_DIR=~/.cc-work claude'
+```
+
+Each alias gets its own config directory with separate `settings.json` (API keys, permissions, statusline, MCP servers, etc.). The default `claude` command uses `~/.claude`.
+
+To install the statusline into a non-default profile, use the `statusline-setup` agent and specify the target `settings.json` path explicitly.
+
 ### Claude Code permissions (`~/.claude/settings.json`)
 
 The following permission rules should be present in the user's global `~/.claude/settings.json` under `permissions.allow`:
