@@ -42,6 +42,7 @@
 
 ### Exit / Close
 - Close session → `exit`
+- Kill session by name → `tmux kill-session -t session_name`
 
 ---
 
