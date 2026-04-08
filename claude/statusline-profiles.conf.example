@@ -1,0 +1,9 @@
+# Claude Code statusline profile labels
+# Copy this file to ~/.claude/statusline-profiles.conf and fill in your actual profile names.
+#
+# Format: profile_dir_pattern:label:256-color-bg
+# The pattern is matched against $CLAUDE_CONFIG_DIR (substring match).
+# Colors: 208 = orange, 34 = green, 33 = blue, 160 = red, 99 = purple
+#
+cc-personal:P:208
+cc-work:W:34
