@@ -79,8 +79,8 @@ tmux source-file ~/.tmux.conf
 Multiple isolated Claude Code profiles via `CLAUDE_CONFIG_DIR` aliases in `~/.zshrc`:
 
 ```zsh
-alias cc-personal='CLAUDE_CONFIG_DIR=~/.cc-personal claude'
-alias cc-work='CLAUDE_CONFIG_DIR=~/.cc-work claude'
+alias cc-personal='CLAUDE_CONFIG_DIR=~/.cc-personal command claude'
+alias cc-work='CLAUDE_CONFIG_DIR=~/.cc-work command claude'
 function claude() { echo "Use cc-personal or cc-work instead of claude directly."; }
 ```
 
