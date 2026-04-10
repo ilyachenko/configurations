@@ -81,9 +81,12 @@ Multiple isolated Claude Code profiles via `CLAUDE_CONFIG_DIR` aliases in `~/.zs
 ```zsh
 alias cc-personal='CLAUDE_CONFIG_DIR=~/.cc-personal claude'
 alias cc-work='CLAUDE_CONFIG_DIR=~/.cc-work claude'
+function claude() { echo "Use cc-personal or cc-work instead of claude directly."; }
 ```
 
 Each alias gets its own config directory with separate `settings.json` (API keys, permissions, statusline, MCP servers, etc.). The default `claude` command uses `~/.claude`.
+
+The `claude` function stubs out the bare command to prevent accidentally launching Claude without a profile.
 
 To install the statusline into a non-default profile, use the `statusline-setup` agent and specify the target `settings.json` path explicitly.
 
