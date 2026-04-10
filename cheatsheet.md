@@ -39,6 +39,13 @@
 
 ### Attach / Switch
 - Attach to session → `tmux attach`
+- List & switch sessions → `Ctrl + b` then `s`
+- Rename session → `Ctrl + b` then `$`
+
+### Save / Restore (tmux-resurrect / tmux-continuum)
+- Save session manually → `Ctrl + b` then `Ctrl + s`
+- Restore session manually → `Ctrl + b` then `Ctrl + r`
+- Auto-save every 15 min, auto-restore on start (continuum)
 
 ### Exit / Close
 - Close session → `exit`
@@ -98,6 +105,16 @@
 
 ---
 
+---
+
+## 👻 Ghostty
+- Toggle quick terminal → `Cmd + Backquote`
+- Toggle float on top → `Cmd + Alt + T`
+- Resize split → `Ctrl + Shift + ← ↑ ↓ →`
+- Shift+Enter → ESC+Enter
+
+---
+
 ## ⚡ Notes
 - `Ctrl + b` = tmux prefix
-- Works together with WezTerm bindings
+- Works together with WezTerm / Ghostty bindings
