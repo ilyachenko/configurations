@@ -2,13 +2,14 @@
 
 ## What it shows
 
-`[P] <dir> (branch) ➜ <model> | <output_style> ctx:<remaining>% 7d:<weekly_usage>%`
+`[P] <dir> (branch) ➜ <model> | <output_style> ctx:<remaining>% 5h:<five_hour_usage>% 7d:<weekly_usage>%`
 
 - **Profile badge**: colored label per profile — detected via `$CLAUDE_CONFIG_DIR`
 - **Directory**: basename, shortened via `~/.zsh_custom_paths.txt` (format: `full_path:short_name`, one per line)
 - **Git branch**: green (clean) or yellow (dirty); omitted outside git repos
 - **Model** and **output style**
 - **Context window** remaining %
+- **5-hour usage** %
 - **7-day usage** %
 
 ---
@@ -64,6 +65,7 @@ current_dir=$(echo "$input" | jq -r '.workspace.current_dir')
 model_name=$(echo "$input" | jq -r '.model.display_name')
 output_style=$(echo "$input" | jq -r '.output_style.name')
 remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty')
+five_hour_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 week_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
 
 custom_path=""
@@ -116,12 +118,15 @@ fi
 ctx_part=""
 [[ -n "$remaining" ]] && ctx_part=" ctx:${remaining}%"
 
+five_hour_part=""
+[[ -n "$five_hour_pct" ]] && five_hour_part=$(printf " 5h:%.0f%%" "$five_hour_pct")
+
 week_part=""
 [[ -n "$week_pct" ]] && week_part=$(printf " 7d:%.0f%%" "$week_pct")
 
-printf "%s${ESC}[36m%s${ESC}[0m%s%s${ESC}[0m ${ESC}[32m➜${ESC}[0m %s | %s%s%s" \
+printf "%s${ESC}[36m%s${ESC}[0m%s%s${ESC}[0m ${ESC}[32m➜${ESC}[0m %s | %s%s%s%s" \
   "$profile_label" "$dir_display" "$git_branch_color" "$git_branch_text" \
-  "$model_name" "$output_style" "$ctx_part" "$week_part"
+  "$model_name" "$output_style" "$ctx_part" "$five_hour_part" "$week_part"
 EOF
 chmod +x ~/.cc-personal/statusline-command.sh
 ```

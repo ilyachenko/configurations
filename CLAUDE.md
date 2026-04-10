@@ -71,7 +71,7 @@ tmux source-file ~/.tmux.conf
 ### Claude Code statusline (`claude/statusline.md`)
 - Command-based statusline config for `~/.claude/settings.json`
 - Shortens directory names via `~/.zsh_custom_paths.txt` (format: `full_path:short_name`, one per line)
-- Shows: `<dir> (branch) ➜ <model> | <output_style> ctx:<remaining>% 7d:<weekly_usage>%`
+- Shows: `<dir> (branch) ➜ <model> | <output_style> ctx:<remaining>% 5h:<five_hour_usage>% 7d:<weekly_usage>%`
 - Git branch in green (clean) or yellow (dirty)
 
 ### Claude Code multiple instances
