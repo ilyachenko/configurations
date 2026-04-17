@@ -69,21 +69,36 @@ if [[ -n "$remaining" ]]; then
   ctx_part=" ${remaining}%"
 fi
 
+usage_color() {
+  local pct=$(printf "%.0f" "$1")
+  if [[ $pct -ge 80 ]]; then echo "${ESC}[31m"
+  elif [[ $pct -ge 50 ]]; then echo "${ESC}[33m"
+  else echo "${ESC}[32m"
+  fi
+}
+
+DIM="${ESC}[2m"
+RESET="${ESC}[0m"
+
 five_hour_part=""
 if [[ -n "$five_hour_pct" ]]; then
+  local pct=$(printf "%.0f" "$five_hour_pct")
+  local color=$(usage_color "$five_hour_pct")
   if [[ -n "$five_hour_reset" ]]; then
-    five_hour_part=" $(fmt_reset "$five_hour_reset"):$(printf "%.0f" "$five_hour_pct")%"
+    five_hour_part=" ${DIM}$(fmt_reset "$five_hour_reset"):${RESET}${color}${pct}%${RESET}"
   else
-    five_hour_part=$(printf " 5h:%.0f%%" "$five_hour_pct")
+    five_hour_part=" ${color}5h:${pct}%${RESET}"
   fi
 fi
 
 week_part=""
 if [[ -n "$week_pct" ]]; then
+  local pct=$(printf "%.0f" "$week_pct")
+  local color=$(usage_color "$week_pct")
   if [[ -n "$week_reset" ]]; then
-    week_part=" $(fmt_reset "$week_reset"):$(printf "%.0f" "$week_pct")%"
+    week_part=" ${DIM}$(fmt_reset "$week_reset"):${RESET}${color}${pct}%${RESET}"
   else
-    week_part=$(printf " 7d:%.0f%%" "$week_pct")
+    week_part=" ${color}7d:${pct}%${RESET}"
   fi
 fi
 
