@@ -81,6 +81,6 @@ if [[ -n "$week_pct" ]]; then
   [[ -n "$week_reset" ]] && week_part+="($(fmt_reset "$week_reset"))"
 fi
 
-printf "%s${ESC}[36m%s${ESC}[0m%s%s${ESC}[0m ${ESC}[32m➜${ESC}[0m %s[%s]%s%s%s" \
+printf "%s${ESC}[36m%s${ESC}[0m%s%s${ESC}[0m${ESC}[32m➜${ESC}[0m%s[%s]%s%s%s" \
   "$profile_label" "$dir_display" "$git_branch_color" "$git_branch_text" \
   "$model_name" "$output_style" "$ctx_part" "$five_hour_part" "$week_part"
