@@ -71,14 +71,20 @@ fi
 
 five_hour_part=""
 if [[ -n "$five_hour_pct" ]]; then
-  five_hour_part=$(printf " 5h:%.0f%%" "$five_hour_pct")
-  [[ -n "$five_hour_reset" ]] && five_hour_part+="($(fmt_reset "$five_hour_reset"))"
+  if [[ -n "$five_hour_reset" ]]; then
+    five_hour_part=" $(fmt_reset "$five_hour_reset"):$(printf "%.0f" "$five_hour_pct")%"
+  else
+    five_hour_part=$(printf " 5h:%.0f%%" "$five_hour_pct")
+  fi
 fi
 
 week_part=""
 if [[ -n "$week_pct" ]]; then
-  week_part=$(printf " 7d:%.0f%%" "$week_pct")
-  [[ -n "$week_reset" ]] && week_part+="($(fmt_reset "$week_reset"))"
+  if [[ -n "$week_reset" ]]; then
+    week_part=" $(fmt_reset "$week_reset"):$(printf "%.0f" "$week_pct")%"
+  else
+    week_part=$(printf " 7d:%.0f%%" "$week_pct")
+  fi
 fi
 
 printf "%s${ESC}[36m%s${ESC}[0m%s%s${ESC}[0m ${ESC}[32m➜${ESC}[0m %s[%s]%s%s%s" \
