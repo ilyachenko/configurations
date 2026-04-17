@@ -8,7 +8,7 @@
 - **Directory**: basename, shortened via `~/.zsh_custom_paths.txt` (format: `full_path:short_name`, one per line)
 - **Git branch**: green (clean) or yellow (dirty); omitted outside git repos
 - **Model** and **output style**
-- **Context window** remaining %
+- **Context window** remaining % (shown as `◈45%`)
 - **5-hour usage** % with time until reset in parentheses, e.g. `5h:75%(1h23m)`
 - **7-day usage** % with time until reset in parentheses, e.g. `7d:50%(3d2h)`
 
@@ -128,7 +128,7 @@ if git -C "$current_dir" rev-parse --no-flags --git-dir > /dev/null 2>&1; then
 fi
 
 ctx_part=""
-[[ -n "$remaining" ]] && ctx_part=" ctx:${remaining}%"
+[[ -n "$remaining" ]] && ctx_part=" ◈${remaining}%"
 
 five_hour_part=""
 if [[ -n "$five_hour_pct" ]]; then
