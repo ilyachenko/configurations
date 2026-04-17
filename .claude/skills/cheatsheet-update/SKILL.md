@@ -1,25 +1,16 @@
 ---
 name: cheatsheet-update
 description: >
-  Update /Users/idiachenko/dev/configurations/cheatsheet.md. Without arguments,
-  syncs it to the current tmux, WezTerm, and Ghostty configs. With an argument,
-  adds or updates the cheatsheet with the provided content (may be unrelated to configs).
+  Update /Users/idiachenko/dev/configurations/cheatsheet.md based on the current
+  conversation — add new shortcuts or notes, remove outdated ones. Optionally commit.
 ---
 
 # Cheatsheet Update
 
-## With an argument
-
-The user provided specific content or instructions. Add or update the cheatsheet
-at `/Users/idiachenko/dev/configurations/cheatsheet.md` accordingly.
-Keep the existing format and style.
-
-## Without an argument
-
-Sync the cheatsheet to the current state of the configs:
+Based on the current conversation, identify any new or changed keybindings, shortcuts,
+or notes that are not yet reflected in the cheatsheet.
 
 1. Read the current cheatsheet at `/Users/idiachenko/dev/configurations/cheatsheet.md`
-2. Read the tmux config at `/Users/idiachenko/dev/configurations/tmux/.tmux.conf`
-3. Read the WezTerm config at `/Users/idiachenko/dev/configurations/wezterm/wezterm.lua`
-4. Read the Ghostty config at `/Users/idiachenko/dev/configurations/ghostty/config`
-5. Update the cheatsheet to match the actual keybindings in all three configs — add missing shortcuts, remove outdated ones, keep the existing format and style.
+2. From the conversation context, extract what changed (new bindings, removed ones, renamed sections, etc.)
+3. Update the cheatsheet accordingly — add missing entries, remove outdated ones, keep the existing format and style
+4. If the user said "and commit" or "update and commit", commit the changes with a short message
