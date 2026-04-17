@@ -53,11 +53,12 @@ fi
 
 ### Option A — Script file (recommended)
 
-**1. Create the script** (Claude fills in the profile block from your profiles conf):
+**1. The script is in the repo** at `claude/statusline-command.sh` — no need to create it. Just ensure it's executable (handled by `install.sh`). The profile badge block detects the profile at runtime via `$CLAUDE_CONFIG_DIR`, so a single script serves all profiles.
+
+For reference, the script content:
 
 ```bash
-mkdir -p ~/.cc-personal
-cat > ~/.cc-personal/statusline-command.sh << 'EOF'
+cat > ~/dev/configurations/claude/statusline-command.sh << 'EOF'
 #!/bin/zsh
 input=$(cat)
 config_file="$HOME/.zsh_custom_paths.txt"
@@ -150,13 +151,13 @@ chmod +x ~/.cc-personal/statusline-command.sh
 
 **Gotcha:** the script must be executable (`chmod +x`). Without it, the statusline silently disappears.
 
-**2. Point each profile's `settings.json` to the script:**
+**2. Point each profile's `settings.json` to the shared script:**
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "/Users/YOUR_USERNAME/.cc-personal/statusline-command.sh"
+    "command": "/Users/YOUR_USERNAME/dev/configurations/claude/statusline-command.sh"
   }
 }
 ```

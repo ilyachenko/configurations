@@ -43,6 +43,7 @@ link "$REPO_DIR/gitui/theme.ron" "$HOME/Library/Application Support/gitui/theme.
 
 echo "==> claude"
 link "$REPO_DIR/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+chmod +x "$REPO_DIR/claude/statusline-command.sh"
 
 echo ""
 echo "Done. Existing files were backed up with a .bak suffix."
