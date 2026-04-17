@@ -66,7 +66,7 @@ fi
 
 ctx_part=""
 if [[ -n "$remaining" ]]; then
-  ctx_part=" ◈${remaining}"
+  ctx_part=" ${remaining}%"
 fi
 
 five_hour_part=""
