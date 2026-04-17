@@ -36,6 +36,8 @@ ln -s ~/dev/configurations/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
 - Prefix + `%`/`"` splits preserving current path
 - Prefix + `H/J/K/L` for pane resizing (repeatable)
 - Prefix + `C-c` opens VS Code in current pane path
+- Prefix + `C-z` opens Zed in current pane path
+- Prefix + `Q` kills a session interactively via fzf
 - Status bar: session/window/pane index, current mode, time in Europe/Lisbon and Europe/Warsaw
 - Plugins via TPM: `tmux-resurrect` (manual save/restore), `tmux-continuum` (auto-save every 15min, auto-restore on start), `tmux-fzf-url` (extract and open URLs)
   - `prefix + Ctrl-s` — save session, `prefix + Ctrl-r` — restore manually
@@ -53,7 +55,7 @@ tmux source-file ~/.tmux.conf
 - Saves window state across sessions
 
 ### WezTerm (`wezterm/wezterm.lua`)
-- Theme: Catppuccin Macchiato, opacity 0.75, macOS blur 20
+- Theme: Kanagawa (Gogh), opacity 0.85, macOS blur 25
 - 100k scrollback, borderless-resizable window chrome
 - Shift+Enter → ESC+Enter (matches Ghostty)
 - Cmd+Alt+T toggles always-on-top
@@ -70,9 +72,10 @@ tmux source-file ~/.tmux.conf
 
 ### Claude Code statusline (`claude/statusline.md`)
 - Command-based statusline config for `~/.claude/settings.json`
+- Shared script at `claude/statusline-command.sh` — used by all profiles, profile badge detected via `$CLAUDE_CONFIG_DIR`
 - Shortens directory names via `~/.zsh_custom_paths.txt` (format: `full_path:short_name`, one per line)
-- Shows: `<dir> (branch) ➜ <model> | <output_style> ctx:<remaining>% 5h:<five_hour_usage>% 7d:<weekly_usage>%`
-- Git branch in green (clean) or yellow (dirty)
+- Shows: `[P] <dir> (branch) ➜ <model> <remaining>% <reset>:<5h_usage>% <reset>:<7d_usage>%`
+- Git branch in green (clean) or yellow (dirty); output style shown only when non-default; usage % colored green/yellow/red by urgency
 
 ### Claude Code multiple instances
 
