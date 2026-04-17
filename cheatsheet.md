@@ -75,12 +75,15 @@
 
 ### Create / List
 - New window → `Ctrl + b` then `c`
-- List windows → `Ctrl + b` then `w`
+- List windows (interactive tree w/ preview) → `Ctrl + b` then `w`
 
 ### Navigate
 - Next → `Ctrl + b` then `n`
 - Previous → `Ctrl + b` then `p`
 - Go to window → `Ctrl + b` then `0–9`
+
+### Rename
+- Rename window → `Ctrl + b` then `,`
 
 ### Close
 - Close window → `Ctrl + b` then `&`
@@ -93,7 +96,7 @@
 ---
 
 ## 🤖 Claude Code Integration
-- Resume last Claude session → `Ctrl + b` then `Ctrl + g`
+- Stash message (draft) → `Ctrl + S` (while typing)
 
 ---
 
@@ -105,8 +108,6 @@
 
 ---
 
----
-
 ## 👻 Ghostty
 - Toggle quick terminal → `Cmd + Backquote`
 - Toggle float on top → `Cmd + Alt + T`
@@ -115,6 +116,14 @@
 
 ---
 
+## 🖥 WezTerm
+- Toggle always-on-top → `Cmd + Alt + T`
+- Resize pane → `Ctrl + Shift + ← ↑ ↓ →`
+- Shift+Enter → ESC+Enter
+
+---
+
 ## ⚡ Notes
 - `Ctrl + b` = tmux prefix
-- Works together with WezTerm / Ghostty bindings
+- Tmux status bar icons: `·` = normal, `⌨` = prefix active, `✂` = copy mode
+- Current window highlighted in center of status bar
