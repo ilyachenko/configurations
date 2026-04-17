@@ -91,8 +91,9 @@
 
 ---
 
-## 💻 VS Code Integration
+## 💻 Editor Integration
 - Open VS Code → `Ctrl + b` then `Ctrl + c`
+- Open Zed → `Ctrl + b` then `Ctrl + z`
 
 ---
 
