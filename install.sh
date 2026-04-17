@@ -26,6 +26,7 @@ link() {
 
 echo "==> tmux"
 link "$REPO_DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
+link "$REPO_DIR/tmux/kill-session.sh" "$HOME/.tmux/kill-session.sh"
 
 echo "==> ghostty"
 link "$REPO_DIR/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"

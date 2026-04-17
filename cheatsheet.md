@@ -50,6 +50,7 @@
 ### Exit / Close
 - Close session → `exit`
 - Kill session by name → `tmux kill-session -t session_name`
+- Kill session interactively (fzf) → `Ctrl + b` then `Q`
 
 ---
 
