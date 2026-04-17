@@ -9,8 +9,8 @@
 - **Git branch**: green (clean) or yellow (dirty); omitted outside git repos
 - **Model** and **output style**
 - **Context window** remaining %
-- **5-hour usage** %
-- **7-day usage** %
+- **5-hour usage** % with time until reset in parentheses, e.g. `5h:75%(1h23m)`
+- **7-day usage** % with time until reset in parentheses, e.g. `7d:50%(3d2h)`
 
 ---
 
@@ -66,7 +66,18 @@ model_name=$(echo "$input" | jq -r '.model.display_name')
 output_style=$(echo "$input" | jq -r '.output_style.name')
 remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty')
 five_hour_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+five_hour_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 week_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+week_reset=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
+
+fmt_reset() {
+  local diff=$(( $1 - $(date +%s) ))
+  if [[ $diff -le 0 ]]; then echo "now"
+  elif [[ $diff -lt 3600 ]]; then echo "$((diff/60))m"
+  elif [[ $diff -lt 86400 ]]; then printf "%dh%02dm" $((diff/3600)) $(( (diff%3600)/60 ))
+  else printf "%dd%dh" $((diff/86400)) $(( (diff%86400)/3600 ))
+  fi
+}
 
 custom_path=""
 if [[ -f "$config_file" ]]; then
@@ -119,10 +130,16 @@ ctx_part=""
 [[ -n "$remaining" ]] && ctx_part=" ctx:${remaining}%"
 
 five_hour_part=""
-[[ -n "$five_hour_pct" ]] && five_hour_part=$(printf " 5h:%.0f%%" "$five_hour_pct")
+if [[ -n "$five_hour_pct" ]]; then
+  five_hour_part=$(printf " 5h:%.0f%%" "$five_hour_pct")
+  [[ -n "$five_hour_reset" ]] && five_hour_part+="($(fmt_reset "$five_hour_reset"))"
+fi
 
 week_part=""
-[[ -n "$week_pct" ]] && week_part=$(printf " 7d:%.0f%%" "$week_pct")
+if [[ -n "$week_pct" ]]; then
+  week_part=$(printf " 7d:%.0f%%" "$week_pct")
+  [[ -n "$week_reset" ]] && week_part+="($(fmt_reset "$week_reset"))"
+fi
 
 printf "%s${ESC}[36m%s${ESC}[0m%s%s${ESC}[0m ${ESC}[32m➜${ESC}[0m %s | %s%s%s%s" \
   "$profile_label" "$dir_display" "$git_branch_color" "$git_branch_text" \
