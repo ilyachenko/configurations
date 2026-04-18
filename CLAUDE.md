@@ -70,6 +70,16 @@ tmux source-file ~/.tmux.conf
 - Catppuccin Macchiato theme using hex colors (bypasses ANSI remapping)
 - Symlinked to both `~/.config/gitui/theme.ron` and `~/Library/Application Support/gitui/theme.ron` (macOS uses the latter)
 
+### Zsh common config (`zsh/common.zsh`)
+
+Portable shell functions sourced from `~/.zshrc` via:
+```zsh
+source ~/dev/configurations/zsh/common.zsh
+```
+
+Currently includes:
+- OSC 7 CWD reporting to tmux — keeps `pane_current_path` accurate for tmux-resurrect path restoration
+
 ### Claude Code statusline (`claude/statusline.md`)
 - Command-based statusline config for `~/.claude/settings.json`
 - Shared script at `claude/statusline-command.sh` — used by all profiles, profile badge detected via `$CLAUDE_CONFIG_DIR`
