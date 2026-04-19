@@ -67,6 +67,9 @@
 ### Resize Panes
 - Resize → `Ctrl + b` then `H / J / K / L`
 
+### Zoom / Fullscreen Pane
+- Toggle zoom (fullscreen) → `Ctrl + b` then `z`
+
 ### Close Pane
 - `exit` or `Ctrl + d`
 
