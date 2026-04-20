@@ -128,6 +128,31 @@
 
 ---
 
+## 🌟 Glow (Markdown Viewer)
+
+### Pager / Reader Mode
+- Scroll up/down → `k / j` or `↑ / ↓`
+- Page up/down → `b / f` or `Page Up / Page Down`
+- Half-page up/down → `u / d`
+- Jump to top/bottom → `g / G` or `Home / End`
+- Copy to clipboard → `c`
+- Open in `$EDITOR` → `e`
+- Reload from disk → `r`
+- Toggle help → `?`
+- Exit pager → `q` or `Esc`
+
+### File List / Stash View
+- Navigate up/down → `k / j` or `↑ / ↓`
+- Open selected → `Enter`
+- Open in editor → `e`
+- Search / filter → `/`
+- Next / prev section → `Tab / Shift+Tab` (or `L / H`)
+- Refresh file list → `r` or `F`
+- Toggle help → `?`
+- Quit → `q`
+
+---
+
 ## ⚡ Notes
 - `Ctrl + b` = tmux prefix
 - Tmux status bar icons: `·` = normal, `⌨` = prefix active, `✂` = copy mode
