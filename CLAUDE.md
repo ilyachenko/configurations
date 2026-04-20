@@ -81,8 +81,6 @@ Currently includes:
 - OSC 7 CWD reporting to tmux — keeps `pane_current_path` accurate for tmux-resurrect path restoration
 - `claude()` stub — prevents accidentally running bare `claude` without a profile alias
 - robbyrussell git prompt color overrides — green branch when clean, yellow `✗` when dirty (theme default is always red)
-- `configs-update` — pulls latest repo changes and re-sources `common.zsh` in the current shell
-
 ### Claude Code statusline (`claude/statusline.md`)
 - Command-based statusline config for `~/.claude/settings.json`
 - Shared script at `claude/statusline-command.sh` — used by all profiles, profile badge detected via `$CLAUDE_CONFIG_DIR`
