@@ -1,7 +1,13 @@
-# Override robbyrussell theme: green branch when clean, yellow ✗ when dirty
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[green]%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}%1{✗%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+# Override robbyrussell git_prompt_info: green branch when clean, yellow branch + ✗ when dirty
+function git_prompt_info() {
+  local branch
+  branch=$(git symbolic-ref --short HEAD 2>/dev/null) || return
+  if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
+    echo "%{$fg_bold[blue]%}git:(%{$fg[yellow]%}${branch}%{$fg[blue]%}) %{$fg[yellow]%}✗%{$reset_color%} "
+  else
+    echo "%{$fg_bold[blue]%}git:(%{$fg[green]%}${branch}%{$fg[blue]%})%{$reset_color%} "
+  fi
+}
 
 # Prevent accidentally launching Claude without a profile
 function claude() { echo "Use a profile alias (e.g. cc-personal) instead of claude directly."; }
