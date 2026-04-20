@@ -9,6 +9,11 @@ function git_prompt_info() {
   fi
 }
 
+# Pull latest configurations and re-source this file
+function configs-update() {
+  git -C ~/dev/configurations pull && source ~/dev/configurations/zsh/common.zsh && echo "configs updated"
+}
+
 # Prevent accidentally launching Claude without a profile
 function claude() { echo "Use a profile alias (e.g. cc-personal) instead of claude directly."; }
 

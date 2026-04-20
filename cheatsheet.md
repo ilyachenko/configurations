@@ -128,6 +128,11 @@
 
 ---
 
+## 🐚 Shell
+- Sync configs from repo → `configs-update`
+
+---
+
 ## ⚡ Notes
 - `Ctrl + b` = tmux prefix
 - Tmux status bar icons: `·` = normal, `⌨` = prefix active, `✂` = copy mode
