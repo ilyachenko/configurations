@@ -1,3 +1,8 @@
+# Override robbyrussell theme: green branch when clean, yellow ✗ when dirty
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[green]%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}%1{✗%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
+
 # Prevent accidentally launching Claude without a profile
 function claude() { echo "Use a profile alias (e.g. cc-personal) instead of claude directly."; }
 
