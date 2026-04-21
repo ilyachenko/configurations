@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧠 Terminal Cheatsheet</title>
+<style>
+  :root {
+    --base: #24273a;
+    --mantle: #1e2030;
+    --crust: #181926;
+    --surface0: #363a4f;
+    --surface1: #494d64;
+    --surface2: #5b6078;
+    --overlay0: #6e738d;
+    --overlay1: #8087a2;
+    --overlay2: #939ab7;
+    --subtext0: #a5adcb;
+    --subtext1: #b8c0e0;
+    --text: #cad3f5;
+    --lavender: #b7bdf8;
+    --blue: #8aadf4;
+    --sapphire: #7dc4e4;
+    --sky: #91d7e3;
+    --teal: #8bd5ca;
+    --green: #a6da95;
+    --yellow: #eed49f;
+    --peach: #f5a97f;
+    --maroon: #ee99a0;
+    --red: #ed8796;
+    --mauve: #c6a0f6;
+    --pink: #f5bde6;
+    --flamingo: #f0c6c6;
+    --rosewater: #f4dbd6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--base);
+    color: var(--text);
+    font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ───────────────────────────────────────────── */
+  #header {
+    background: var(--crust);
+    border-bottom: 1px solid var(--surface0);
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--mauve);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  #search-wrap {
+    flex: 1;
+    position: relative;
+    max-width: 480px;
+  }
+
+  #search {
+    width: 100%;
+    background: var(--surface0);
+    border: 1px solid var(--surface1);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    padding: 7px 36px 7px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  #search:focus { border-color: var(--mauve); }
+  #search::placeholder { color: var(--overlay0); }
+
+  #search-clear {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--overlay1);
+    cursor: pointer;
+    font-size: 16px;
+    display: none;
+    line-height: 1;
+    padding: 2px;
+  }
+  #search-clear:hover { color: var(--text); }
+
+  #header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .header-btn {
+    background: var(--surface0);
+    border: 1px solid var(--surface1);
+    border-radius: 6px;
+    color: var(--subtext0);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    padding: 5px 10px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .header-btn:hover { background: var(--surface1); color: var(--text); }
+
+  #match-count {
+    font-size: 12px;
+    color: var(--overlay1);
+    white-space: nowrap;
+  }
+
+  /* ── Main content ─────────────────────────────────────── */
+  #content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+  }
+
+  /* ── Section ──────────────────────────────────────────── */
+  .section {
+    margin-bottom: 12px;
+    border: 1px solid var(--surface0);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: opacity 0.15s;
+  }
+
+  .section.hidden { display: none; }
+
+  .section-header {
+    background: var(--mantle);
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background 0.15s;
+    user-select: none;
+  }
+
+  .section-header:hover { background: var(--surface0); }
+
+  .section-header .section-icon { font-size: 18px; flex-shrink: 0; }
+
+  .section-header .section-title { flex: 1; }
+
+  .section-header .chevron {
+    color: var(--overlay1);
+    font-size: 12px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .section.collapsed .chevron { transform: rotate(-90deg); }
+
+  .section-body {
+    padding: 4px 0 8px;
+  }
+
+  .section.collapsed .section-body { display: none; }
+
+  /* ── Subsection ───────────────────────────────────────── */
+  .subsection {
+    padding: 8px 16px 4px;
+  }
+
+  .subsection-title {
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--surface0);
+  }
+
+  /* ── Binding rows ─────────────────────────────────────── */
+  .binding {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 4px 0;
+    border-radius: 4px;
+    transition: background 0.1s;
+  }
+
+  .binding:hover { background: var(--surface0); padding-left: 4px; margin-left: -4px; }
+
+  .binding-desc {
+    color: var(--subtext1);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .binding-desc .highlight {
+    background: var(--yellow);
+    color: var(--crust);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+
+  .binding-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+
+  /* ── Key badges ───────────────────────────────────────── */
+  .key {
+    background: var(--surface1);
+    border: 1px solid var(--surface2);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    color: var(--lavender);
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    padding: 3px 7px;
+    white-space: nowrap;
+  }
+
+  .key.modifier { color: var(--peach); }
+  .key.arrow { color: var(--sky); }
+  .key.letter { color: var(--green); }
+  .key.special { color: var(--mauve); }
+  .key.cmd { color: var(--pink); }
+
+  .key-sep {
+    color: var(--overlay0);
+    font-size: 11px;
+    align-self: center;
+  }
+
+  /* ── Note rows ────────────────────────────────────────── */
+  .note {
+    color: var(--overlay2);
+    font-size: 13px;
+    padding: 3px 0;
+    font-style: italic;
+  }
+
+  /* ── No results ───────────────────────────────────────── */
+  #no-results {
+    display: none;
+    text-align: center;
+    padding: 60px 0;
+    color: var(--overlay0);
+    font-size: 16px;
+  }
+
+  /* ── Keyboard shortcut hints ──────────────────────────── */
+  #shortcuts-hint {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--crust);
+    border: 1px solid var(--surface1);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--overlay1);
+    display: none;
+    z-index: 200;
+    line-height: 2;
+  }
+
+  #shortcuts-hint.visible { display: block; }
+
+  #shortcuts-hint .hint-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  #shortcuts-hint .hint-key {
+    background: var(--surface0);
+    border: 1px solid var(--surface1);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--subtext0);
+    font-size: 11px;
+  }
+
+  /* ── Scrollbar ────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--base); }
+  ::-webkit-scrollbar-thumb { background: var(--surface1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--surface2); }
+
+  /* ── Selection ────────────────────────────────────────── */
+  ::selection { background: var(--mauve); color: var(--crust); }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <h1>🧠 Cheatsheet</h1>
+  <div id="search-wrap">
+    <input id="search" type="text" placeholder="Search bindings… (press / to focus)" autocomplete="off" spellcheck="false">
+    <button id="search-clear" title="Clear">✕</button>
+  </div>
+  <div id="header-actions">
+    <span id="match-count"></span>
+    <button class="header-btn" id="btn-expand-all">Expand all</button>
+    <button class="header-btn" id="btn-collapse-all">Collapse all</button>
+    <button class="header-btn" id="btn-help" title="Keyboard shortcuts">?</button>
+  </div>
+</div>
+
+<div id="content">
+  <!-- Sections injected by JS -->
+</div>
+
+<div id="no-results">No matches found — try a different search term.</div>
+
+<div id="shortcuts-hint">
+  <div class="hint-row"><span><span class="hint-key">/</span></span><span>Focus search</span></div>
+  <div class="hint-row"><span><span class="hint-key">Esc</span></span><span>Clear search / close</span></div>
+  <div class="hint-row"><span><span class="hint-key">↑↓</span></span><span>Navigate sections</span></div>
+  <div class="hint-row"><span><span class="hint-key">Space</span></span><span>Toggle focused section</span></div>
+  <div class="hint-row"><span><span class="hint-key">E / C</span></span><span>Expand / Collapse all</span></div>
+  <div class="hint-row"><span><span class="hint-key">?</span></span><span>Toggle this panel</span></div>
+</div>
+
+<script>
+// ── Data ─────────────────────────────────────────────────
+const DATA = [
+  {
+    icon: "📋", title: "Copying & Selection",
+    subsections: [
+      {
+        title: "Tmux Copy Mode (vi mode)",
+        bindings: [
+          { desc: "Enter copy mode",       keys: [["Ctrl+b"], "then", ["["]] },
+          { desc: "Navigate",              keys: [["h"], "/", ["j"], "/", ["k"], "/", ["l"]] },
+          { desc: "Start selection",       keys: [["v"]] },
+          { desc: "Copy (stay in mode)",   keys: [["y"]] },
+          { desc: "Copy + exit",           keys: [["Enter"]] },
+          { desc: "Exit copy mode",        keys: [["q"], "or", ["Esc"]] },
+        ]
+      },
+      {
+        title: "WezTerm Copying",
+        bindings: [
+          { desc: "Copy mode",             keys: [["Ctrl+Shift+X"]] },
+          { desc: "Quick select mode",     keys: [["Ctrl+Shift+Space"]] },
+          { desc: "Copy + clear selection",keys: [["Ctrl+Shift+C"]] },
+        ]
+      },
+      {
+        title: "WezTerm Line Navigation",
+        bindings: [
+          { desc: "Beginning of line",     keys: [["Cmd+←"]] },
+          { desc: "End of line",           keys: [["Cmd+→"]] },
+          { desc: "Jump word left",        keys: [["Opt+←"]] },
+          { desc: "Jump word right",       keys: [["Opt+→"]] },
+        ]
+      }
+    ]
+  },
+  {
+    icon: "🔗", title: "Opening Links",
+    bindings: [
+      { desc: "Open link",                 keys: [["Ctrl+Click"], "(WezTerm, works inside tmux)"] },
+      { desc: "Extract URLs (fzf)",        keys: [["Ctrl+b"], "then", ["u"]] },
+    ]
+  },
+  {
+    icon: "🪟", title: "Session Management",
+    subsections: [
+      {
+        title: "Create Sessions",
+        bindings: [
+          { desc: "Create & enter",        keys: [["tmux new-session"]] },
+          { desc: "Create in background",  keys: [["tmux new-session -d -s <name>"]] },
+        ]
+      },
+      {
+        title: "Attach / Switch",
+        bindings: [
+          { desc: "Attach to session",     keys: [["tmux attach"]] },
+          { desc: "List & switch sessions",keys: [["Ctrl+b"], "then", ["s"]] },
+          { desc: "Rename session",        keys: [["Ctrl+b"], "then", ["$"]] },
+        ]
+      },
+      {
+        title: "Save / Restore",
+        note: "tmux-resurrect / tmux-continuum",
+        bindings: [
+          { desc: "Save session manually", keys: [["Ctrl+b"], "then", ["Ctrl+s"]] },
+          { desc: "Restore manually",      keys: [["Ctrl+b"], "then", ["Ctrl+r"]] },
+          { desc: "Auto-save every 15 min, auto-restore on start (continuum)", keys: [] },
+        ]
+      },
+      {
+        title: "Exit / Close",
+        bindings: [
+          { desc: "Close session",         keys: [["exit"]] },
+          { desc: "Kill session by name",  keys: [["tmux kill-session -t <name>"]] },
+          { desc: "Kill session (fzf)",    keys: [["Ctrl+b"], "then", ["Q"]] },
+        ]
+      }
+    ]
+  },
+  {
+    icon: "🧩", title: "Pane Management",
+    subsections: [
+      {
+        title: "Split Panes",
+        bindings: [
+          { desc: "Vertical split",        keys: [["Ctrl+b"], "then", ["%"]] },
+          { desc: "Horizontal split",      keys: [["Ctrl+b"], "then", ['"']] },
+        ]
+      },
+      {
+        title: "Navigate Panes",
+        bindings: [
+          { desc: "Switch panes",          keys: [["Ctrl+b"], "then", ["← ↑ ↓ →"]] },
+          { desc: "Switch panes (no prefix)", keys: [["Alt+h/j/k/l"]] },
+        ]
+      },
+      {
+        title: "Resize Panes",
+        bindings: [
+          { desc: "Resize",                keys: [["Ctrl+b"], "then", ["H/J/K/L"]] },
+        ]
+      },
+      {
+        title: "Zoom / Close",
+        bindings: [
+          { desc: "Toggle zoom (fullscreen)", keys: [["Ctrl+b"], "then", ["z"]] },
+          { desc: "Close pane",            keys: [["exit"], "or", ["Ctrl+d"]] },
+        ]
+      }
+    ]
+  },
+  {
+    icon: "🗂", title: "Window Management",
+    subsections: [
+      {
+        title: "Create / List",
+        bindings: [
+          { desc: "New window",            keys: [["Ctrl+b"], "then", ["c"]] },
+          { desc: "List windows (tree + preview)", keys: [["Ctrl+b"], "then", ["w"]] },
+        ]
+      },
+      {
+        title: "Navigate",
+        bindings: [
+          { desc: "Next window",           keys: [["Ctrl+b"], "then", ["n"]] },
+          { desc: "Previous window",       keys: [["Ctrl+b"], "then", ["p"]] },
+          { desc: "Go to window",          keys: [["Ctrl+b"], "then", ["0–9"]] },
+        ]
+      },
+      {
+        title: "Rename / Close",
+        bindings: [
+          { desc: "Rename window",         keys: [["Ctrl+b"], "then", [","]] },
+          { desc: "Close window",          keys: [["Ctrl+b"], "then", ["&"]] },
+        ]
+      }
+    ]
+  },
+  {
+    icon: "💻", title: "Editor Integration",
+    bindings: [
+      { desc: "Open VS Code",              keys: [["Ctrl+b"], "then", ["Ctrl+c"]] },
+      { desc: "Open Zed",                  keys: [["Ctrl+b"], "then", ["Ctrl+z"]] },
+    ]
+  },
+  {
+    icon: "🤖", title: "Claude Code",
+    bindings: [
+      { desc: "Stash message (draft)",     keys: [["Ctrl+S"], "(while typing)"] },
+    ]
+  },
+  {
+    icon: "✏️", title: "Terminal Editing (Shell)",
+    bindings: [
+      { desc: "Delete after cursor",       keys: [["Ctrl+K"]] },
+      { desc: "Delete whole line",         keys: [["Ctrl+U"]] },
+      { desc: "Open command in $EDITOR",   keys: [["Ctrl+X"], "then", ["E"]] },
+    ]
+  },
+  {
+    icon: "👻", title: "Ghostty",
+    bindings: [
+      { desc: "Toggle quick terminal",     keys: [["Cmd+`"]] },
+      { desc: "Toggle float on top",       keys: [["Cmd+Alt+T"]] },
+      { desc: "Resize split",              keys: [["Ctrl+Shift+← ↑ ↓ →"]] },
+      { desc: "Send ESC+Enter",            keys: [["Shift+Enter"]] },
+    ]
+  },
+  {
+    icon: "🖥", title: "WezTerm",
+    bindings: [
+      { desc: "Toggle always-on-top",      keys: [["Cmd+Alt+T"]] },
+      { desc: "Resize pane",               keys: [["Ctrl+Shift+← ↑ ↓ →"]] },
+      { desc: "Send ESC+Enter",            keys: [["Shift+Enter"]] },
+    ]
+  },
+  {
+    icon: "🌟", title: "Glow (Markdown Viewer)",
+    subsections: [
+      {
+        title: "Pager / Reader Mode",
+        bindings: [
+          { desc: "Scroll up / down",      keys: [["k/j"], "or", ["↑ / ↓"]] },
+          { desc: "Page up / down",        keys: [["b/f"], "or", ["PgUp/PgDn"]] },
+          { desc: "Half-page up / down",   keys: [["u/d"]] },
+          { desc: "Jump to top / bottom",  keys: [["g/G"], "or", ["Home/End"]] },
+          { desc: "Copy to clipboard",     keys: [["c"]] },
+          { desc: "Open in $EDITOR",       keys: [["e"]] },
+          { desc: "Reload from disk",      keys: [["r"]] },
+          { desc: "Toggle help",           keys: [["?"]] },
+          { desc: "Exit pager",            keys: [["q"], "or", ["Esc"]] },
+        ]
+      },
+      {
+        title: "File List / Stash View",
+        bindings: [
+          { desc: "Navigate up / down",    keys: [["k/j"], "or", ["↑ / ↓"]] },
+          { desc: "Open selected",         keys: [["Enter"]] },
+          { desc: "Open in editor",        keys: [["e"]] },
+          { desc: "Search / filter",       keys: [["/"]] },
+          { desc: "Next / prev section",   keys: [["Tab/Shift+Tab"], "or", ["L/H"]] },
+          { desc: "Refresh file list",     keys: [["r"], "or", ["F"]] },
+          { desc: "Toggle help",           keys: [["?"]] },
+          { desc: "Quit",                  keys: [["q"]] },
+        ]
+      }
+    ]
+  },
+  {
+    icon: "⚡", title: "Notes",
+    notes: [
+      "Ctrl+b  = tmux prefix",
+      "Status bar: · = normal  ⌨ = prefix active  ✂ = copy mode",
+      "Current window highlighted in center of status bar",
+    ]
+  }
+];
+
+// ── Render ────────────────────────────────────────────────
+function classifyKey(k) {
+  if (/^(Ctrl|Alt|Shift|Opt|Cmd)/.test(k)) return 'modifier';
+  if (/[←→↑↓]/.test(k)) return 'arrow';
+  if (/^[a-zA-Z]$/.test(k)) return 'letter';
+  if (/^(Esc|Enter|Space|Tab|PgUp|PgDn|Home|End|Backspace|Del)$/.test(k)) return 'special';
+  if (/Cmd/.test(k)) return 'cmd';
+  return '';
+}
+
+function renderKeys(keys, highlight) {
+  if (!keys || keys.length === 0) return '';
+  return keys.map(k => {
+    if (typeof k === 'string') {
+      return `<span class="key-sep">${k}</span>`;
+    }
+    const text = k[0];
+    const cls = classifyKey(text);
+    const hl = highlight && text.toLowerCase().includes(highlight.toLowerCase())
+      ? ` style="background:var(--yellow);color:var(--crust);"`
+      : '';
+    return `<span class="key ${cls}"${hl}>${escHtml(text)}</span>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function wrapHighlight(text, term) {
+  if (!term) return escHtml(text);
+  const re = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return escHtml(text).replace(re, '<span class="highlight">$1</span>');
+}
+
+function renderBinding(b, term) {
+  return `<div class="binding" data-text="${escHtml((b.desc + ' ' + (b.keys||[]).flat().join(' ')).toLowerCase())}">
+    <span class="binding-desc">${wrapHighlight(b.desc, term)}</span>
+    <span class="binding-keys">${renderKeys(b.keys, term)}</span>
+  </div>`;
+}
+
+function renderSection(sec, idx, term) {
+  let body = '';
+  if (sec.notes) {
+    body = sec.notes.map(n => `<div class="subsection"><p class="note">${escHtml(n)}</p></div>`).join('');
+  } else if (sec.subsections) {
+    body = sec.subsections.map(sub => `
+      <div class="subsection">
+        <div class="subsection-title">${escHtml(sub.title)}</div>
+        ${sub.note ? `<p class="note">${escHtml(sub.note)}</p>` : ''}
+        ${(sub.bindings||[]).map(b => renderBinding(b, term)).join('')}
+      </div>`).join('');
+  } else if (sec.bindings) {
+    body = `<div class="subsection">${sec.bindings.map(b => renderBinding(b, term)).join('')}</div>`;
+  }
+
+  return `<div class="section" id="sec-${idx}" tabindex="0">
+    <button class="section-header" data-idx="${idx}" aria-expanded="true">
+      <span class="section-icon">${sec.icon}</span>
+      <span class="section-title">${escHtml(sec.title)}</span>
+      <span class="chevron">▼</span>
+    </button>
+    <div class="section-body">${body}</div>
+  </div>`;
+}
+
+function buildContent(term) {
+  const content = document.getElementById('content');
+  content.innerHTML = DATA.map((s,i) => renderSection(s,i,term)).join('');
+  attachToggleHandlers();
+}
+
+function attachToggleHandlers() {
+  document.querySelectorAll('.section-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sec = btn.closest('.section');
+      sec.classList.toggle('collapsed');
+      btn.setAttribute('aria-expanded', !sec.classList.contains('collapsed'));
+    });
+  });
+}
+
+// ── Search ────────────────────────────────────────────────
+let searchTerm = '';
+
+function doSearch(term) {
+  searchTerm = term.trim().toLowerCase();
+  const clearBtn = document.getElementById('search-clear');
+  clearBtn.style.display = searchTerm ? 'block' : 'none';
+
+  if (!searchTerm) {
+    buildContent('');
+    document.getElementById('match-count').textContent = '';
+    document.getElementById('no-results').style.display = 'none';
+    return;
+  }
+
+  buildContent(searchTerm);
+
+  let totalMatches = 0;
+  document.querySelectorAll('.section').forEach(sec => {
+    const bindings = sec.querySelectorAll('.binding');
+    let sectionMatches = 0;
+    bindings.forEach(b => {
+      const text = b.dataset.text || '';
+      if (text.includes(searchTerm)) {
+        sectionMatches++;
+        totalMatches++;
+      } else {
+        b.style.display = 'none';
+      }
+    });
+    // Also match section title
+    const titleEl = sec.querySelector('.section-title');
+    const titleMatch = titleEl && titleEl.textContent.toLowerCase().includes(searchTerm);
+    if (sectionMatches === 0 && !titleMatch) {
+      sec.classList.add('hidden');
+    } else {
+      sec.classList.remove('hidden');
+      sec.classList.remove('collapsed');
+    }
+  });
+
+  const noResults = document.getElementById('no-results');
+  noResults.style.display = totalMatches === 0 ? 'block' : 'none';
+  const mc = document.getElementById('match-count');
+  mc.textContent = totalMatches > 0 ? `${totalMatches} match${totalMatches !== 1 ? 'es' : ''}` : '';
+}
+
+// ── Keyboard navigation ───────────────────────────────────
+let focusedIdx = -1;
+
+function sections() { return [...document.querySelectorAll('.section:not(.hidden)')]; }
+
+function moveFocus(delta) {
+  const secs = sections();
+  if (!secs.length) return;
+  focusedIdx = Math.max(0, Math.min(secs.length - 1, focusedIdx + delta));
+  secs[focusedIdx].focus();
+  secs[focusedIdx].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+}
+
+document.addEventListener('keydown', e => {
+  const search = document.getElementById('search');
+  const hint = document.getElementById('shortcuts-hint');
+  const tag = document.activeElement.tagName;
+  const inSearch = document.activeElement === search;
+
+  if (e.key === '?' && !inSearch) {
+    hint.classList.toggle('visible');
+    return;
+  }
+
+  if (e.key === '/' && !inSearch) {
+    e.preventDefault();
+    search.focus();
+    return;
+  }
+
+  if (e.key === 'Escape') {
+    if (hint.classList.contains('visible')) { hint.classList.remove('visible'); return; }
+    if (inSearch || search.value) {
+      search.value = '';
+      doSearch('');
+      search.blur();
+      return;
+    }
+  }
+
+  if (!inSearch) {
+    if (e.key === 'ArrowDown' || e.key === 'j') { e.preventDefault(); moveFocus(1); }
+    if (e.key === 'ArrowUp'   || e.key === 'k') { e.preventDefault(); moveFocus(-1); }
+    if (e.key === ' ' && document.activeElement.classList.contains('section')) {
+      e.preventDefault();
+      document.activeElement.querySelector('.section-header').click();
+    }
+    if (e.key === 'e' || e.key === 'E') { expandAll(); }
+    if (e.key === 'c' || e.key === 'C') { collapseAll(); }
+  }
+});
+
+function expandAll() {
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.remove('collapsed');
+    s.querySelector('.section-header').setAttribute('aria-expanded','true');
+  });
+}
+function collapseAll() {
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.add('collapsed');
+    s.querySelector('.section-header').setAttribute('aria-expanded','false');
+  });
+}
+
+// ── Init ──────────────────────────────────────────────────
+buildContent('');
+
+document.getElementById('search').addEventListener('input', e => doSearch(e.target.value));
+document.getElementById('search-clear').addEventListener('click', () => {
+  document.getElementById('search').value = '';
+  doSearch('');
+  document.getElementById('search').focus();
+});
+document.getElementById('btn-expand-all').addEventListener('click', expandAll);
+document.getElementById('btn-collapse-all').addEventListener('click', collapseAll);
+document.getElementById('btn-help').addEventListener('click', () => {
+  document.getElementById('shortcuts-hint').classList.toggle('visible');
+});
+</script>
+</body>
+</html>
