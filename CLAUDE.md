@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Dotfiles repository syncing terminal and editor configurations across machines via Git. Configs are symlinked from their expected system locations to this repo.
 
+## GitHub Pages
+
+`index.html` is a self-contained interactive cheatsheet published via GitHub Pages at `https://ilyachenko.github.io/configurations/`. It is generated from the same content as `cheatsheet.md` but with live search, collapsible sections, and styled key badges.
+
 ## Setup
 
 Run the automated installer from the repo root:
