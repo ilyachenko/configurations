@@ -85,6 +85,16 @@ Currently includes:
 - OSC 7 CWD reporting to tmux — keeps `pane_current_path` accurate for tmux-resurrect path restoration
 - `claude()` stub — prevents accidentally running bare `claude` without a profile alias
 - robbyrussell git prompt color overrides — green branch when clean, yellow `✗` when dirty (theme default is always red)
+### Zsh scripts (`zsh/`)
+
+- `history-clean.py` — interactive fzf tool to find and remove long commands from `~/.zsh_history`
+  - Usage: `~/dev/configurations/zsh/history-clean.py [min_length]` (default: 100 chars)
+  - Shows age of each entry; Tab to select, Alt-A to select all, Enter to remove
+
+### Claude Code commands (`.claude/commands/`)
+
+- `/backlog <idea>` — append an idea to `BACKLOG.md` in the current project root
+
 ### Claude Code statusline (`claude/statusline.md`)
 - Command-based statusline config for `~/.claude/settings.json`
 - Shared script at `claude/statusline-command.sh` — used by all profiles, profile badge detected via `$CLAUDE_CONFIG_DIR`
