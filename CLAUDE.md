@@ -88,7 +88,8 @@ Currently includes:
 ### Zsh scripts (`zsh/`)
 
 - `history-clean.py` — interactive fzf tool to find and remove long commands from `~/.zsh_history`
-  - Usage: `~/dev/configurations/zsh/history-clean.py [min_length]` (default: 100 chars)
+  - Usage: `~/dev/configurations/zsh/history-clean.py [-r] [min_length]` (default: 100 chars)
+  - `-r` — show most recent entries first
   - Shows age of each entry; Tab to select, Alt-A to select all, Enter to remove
 
 ### Claude Code commands (`.claude/commands/`)

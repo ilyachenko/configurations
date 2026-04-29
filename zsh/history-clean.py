@@ -12,7 +12,10 @@ import time
 from pathlib import Path
 
 HISTORY_FILE = Path(os.environ.get('HISTFILE', os.path.expanduser('~/.zsh_history')))
-MIN_LENGTH = int(sys.argv[1]) if len(sys.argv) > 1 else 100
+
+args = [a for a in sys.argv[1:] if a != '-r']
+RECENT_FIRST = '-r' in sys.argv[1:]
+MIN_LENGTH = int(args[0]) if args else 100
 
 
 def parse_entries(path: Path) -> list[str]:
@@ -73,6 +76,9 @@ def main():
     if not long_entries:
         print(f"No commands longer than {MIN_LENGTH} chars found.")
         return
+
+    if RECENT_FIRST:
+        long_entries = list(reversed(long_entries))
 
     fzf_input = '\n'.join(
         f"{i}\t{format_age(entry_timestamp(e)):>4}\t{command_text(e)}"
