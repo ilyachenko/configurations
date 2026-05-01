@@ -85,6 +85,7 @@ Currently includes:
 - OSC 7 CWD reporting to tmux — keeps `pane_current_path` accurate for tmux-resurrect path restoration
 - `claude()` stub — prevents accidentally running bare `claude` without a profile alias
 - robbyrussell git prompt color overrides — green branch when clean, yellow `✗` when dirty (theme default is always red)
+- `za()` — attach to a zellij session picked via fzf (`zellij list-sessions | fzf`)
 ### Zsh scripts (`zsh/`)
 
 - `history-clean.py` — interactive fzf tool to find and remove long commands from `~/.zsh_history`

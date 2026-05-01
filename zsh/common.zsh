@@ -9,6 +9,11 @@ function git_prompt_info() {
   fi
 }
 
+# Attach to a zellij session picked via fzf
+function za() {
+  zellij attach "$(zellij list-sessions --no-formatting | awk '{print $1}' | fzf)"
+}
+
 # Prevent accidentally launching Claude without a profile
 function claude() { echo "Use a profile alias (e.g. cc-personal) instead of claude directly."; }
 
