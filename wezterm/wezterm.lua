@@ -146,6 +146,17 @@ config.keys = {
 			act.ClearSelection,
 		}),
 	},
+	-- Smart paste: replace LF with ESC+CR so multiline paste works in Claude Code inside tmux
+	{
+		key = "v",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action_callback(function(window, pane)
+			local handle = io.popen("pbpaste")
+			local clipboard = handle:read("*a")
+			handle:close()
+			pane:send_text(clipboard:gsub("\n", "\x1b\r"))
+		end),
+	},
 	-- Pane resize (mirrors tmux prefix+H/J/K/L concept, but direct in wezterm)
 	{ key = "LeftArrow", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Left", 5 }) },
 	{ key = "RightArrow", mods = "CTRL|SHIFT", action = act.AdjustPaneSize({ "Right", 5 }) },
