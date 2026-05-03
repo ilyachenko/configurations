@@ -33,6 +33,17 @@ ln -s ~/dev/configurations/ghostty/config ~/Library/Application\ Support/com.mit
 ln -s ~/dev/configurations/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
 ```
 
+## Conventions
+
+### Work profile confidentiality
+
+When setting up multi-profile aliases for any CLI tool (Claude Code, Codex, etc.), the work profile name and its config directory path are confidential and must never be committed to this repo.
+
+Pattern:
+- The repo contains only a stub function (e.g. `codex()`, `claude()`) that blocks accidental bare invocations
+- Real aliases — including the work profile name — are added manually to `~/.zshrc` on each machine
+- Docs and code in this repo use `cx-work` / `cc-work` as neutral placeholders
+
 ## Configurations
 
 ### tmux (`tmux/.tmux.conf`)
@@ -84,6 +95,7 @@ source ~/dev/configurations/zsh/common.zsh
 Currently includes:
 - OSC 7 CWD reporting to tmux — keeps `pane_current_path` accurate for tmux-resurrect path restoration
 - `claude()` stub — prevents accidentally running bare `claude` without a profile alias
+- `codex()` stub — prevents accidentally running bare `codex` without a profile alias
 - robbyrussell git prompt color overrides — green branch when clean, yellow `✗` when dirty (theme default is always red)
 - `za()` — attach to a zellij session picked via fzf (`zellij list-sessions | fzf`)
 ### Zsh scripts (`zsh/`)
@@ -103,6 +115,26 @@ Currently includes:
 - Shortens directory names via `~/.zsh_custom_paths.txt` (format: `full_path:short_name`, one per line)
 - Shows: `[P] <dir> (branch) ➜ <model> <remaining>% <reset>:<5h_usage>% <reset>:<7d_usage>%`
 - Git branch in green (clean) or yellow (dirty); output style shown only when non-default; usage % colored green/yellow/red by urgency
+
+### Codex CLI multiple instances
+
+Multiple isolated Codex CLI profiles via `CODEX_HOME` aliases in `~/.zshrc`:
+
+```zsh
+alias cx-personal='CODEX_HOME=~/.codex-personal command codex'
+alias cx-work='CODEX_HOME=~/.codex-work command codex'
+```
+
+The `codex()` stub in `zsh/common.zsh` prevents accidentally running bare `codex`. The actual aliases (including the real work profile name) must be added manually to `~/.zshrc` on each machine — they are not committed to the repo.
+
+Each profile gets its own isolated directory with separate auth, config, sessions, and memories.
+
+On a new machine, create each profile directory and log in:
+
+```zsh
+mkdir -p ~/.codex-personal && cx-personal login
+mkdir -p ~/.codex-work && cx-work login   # use real work alias name
+```
 
 ### Claude Code multiple instances
 
