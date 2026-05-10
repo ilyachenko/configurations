@@ -17,8 +17,8 @@ function za() {
 # Prevent accidentally launching Claude without a profile
 function claude() { echo "Use a profile alias (e.g. cc-personal) instead of claude directly."; }
 
-# Prevent accidentally launching Codex without a profile
-function codex() { echo "Use a profile alias (e.g. cx-personal) instead of codex directly."; }
+# Uncomment to block bare `codex` invocations (use cx-personal / cx-work aliases instead)
+# function codex() { echo "Use a profile alias (e.g. cx-personal) instead of codex directly."; }
 
 # Report CWD to tmux via OSC 7 so pane_current_path stays accurate (fixes resurrect path loss)
 if [[ -n "$TMUX" ]]; then
