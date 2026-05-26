@@ -49,8 +49,8 @@ Pattern:
 ### tmux (`tmux/.tmux.conf`)
 - Mouse support, vi copy-mode, 100k scrollback
 - Prefix + `%`/`"` splits preserving current path
+- Prefix + `H` sets session home to current pane's path (`tmux set @home`)
 - Prefix + `C` opens new window in session home (`@home`); falls back to `~` if not set
-  - Set session home: `tmux set -s @home ~/dev/myproject`
 - Prefix + `H/J/K/L` for pane resizing (repeatable)
 - Prefix + `C-c` opens VS Code in current pane path
 - Prefix + `C-z` opens Zed in current pane path

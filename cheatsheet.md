@@ -64,9 +64,6 @@
 - Switch panes → `Ctrl + b` then `← ↑ ↓ →`
 - Switch panes (fast, no prefix) → `Alt + h / j / k / l`
 
-### Resize Panes
-- Resize → `Ctrl + b` then `H / J / K / L`
-
 ### Zoom / Fullscreen Pane
 - Toggle zoom (fullscreen) → `Ctrl + b` then `z`
 
@@ -80,7 +77,7 @@
 ### Create / List
 - New window → `Ctrl + b` then `c`
 - New window in session home → `Ctrl + b` then `C`
-  - Set session home: `tmux set -s @home ~/dev/myproject`
+- Set session home to current path → `Ctrl + b` then `H`
 - List windows (interactive tree w/ preview) → `Ctrl + b` then `w`
 
 ### Navigate
