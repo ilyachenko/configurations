@@ -79,6 +79,8 @@
 
 ### Create / List
 - New window → `Ctrl + b` then `c`
+- New window in session home → `Ctrl + b` then `C`
+  - Set session home: `tmux set -s @home ~/dev/myproject`
 - List windows (interactive tree w/ preview) → `Ctrl + b` then `w`
 
 ### Navigate
@@ -125,6 +127,7 @@
 - Toggle always-on-top → `Cmd + Alt + T`
 - Resize pane → `Ctrl + Shift + ← ↑ ↓ →`
 - Shift+Enter → ESC+Enter
+- Smart paste → `Ctrl + Shift + V` (replaces LF with ESC+CR, safe for Claude Code inside tmux)
 
 ---
 
