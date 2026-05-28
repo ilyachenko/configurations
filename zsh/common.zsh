@@ -28,3 +28,8 @@ if [[ -n "$TMUX" ]]; then
   precmd_functions+=(_tmux_osc7_cwd)
   chpwd_functions+=(_tmux_osc7_cwd)
 fi
+
+# Suppress Chromium "Google API keys are missing" dialog
+export GOOGLE_API_KEY="no"
+export GOOGLE_DEFAULT_CLIENT_ID="no"
+export GOOGLE_DEFAULT_CLIENT_SECRET="no"
