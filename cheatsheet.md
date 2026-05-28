@@ -78,6 +78,7 @@
 - New window → `Ctrl + b` then `c`
 - New window in session home → `Ctrl + b` then `C`
 - Set session home to current path → `Ctrl + b` then `H`
+- cd to session home in current pane → `Ctrl + b` then `~`
 - List windows (interactive tree w/ preview) → `Ctrl + b` then `w`
 
 ### Navigate

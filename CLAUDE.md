@@ -51,6 +51,7 @@ Pattern:
 - Prefix + `%`/`"` splits preserving current path
 - Prefix + `H` sets session home to current pane's path (`tmux set @home`)
 - Prefix + `C` opens new window in session home (`@home`); falls back to `~` if not set
+- Prefix + `~` cd's to session home in the current pane; falls back to `$HOME` if not set
 - Prefix + `H/J/K/L` for pane resizing (repeatable)
 - Prefix + `C-c` opens VS Code in current pane path
 - Prefix + `C-z` opens Zed in current pane path
