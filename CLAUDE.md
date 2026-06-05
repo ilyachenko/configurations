@@ -141,19 +141,41 @@ mkdir -p ~/.codex-work && cx-work login   # use real work alias name
 
 ### Claude Code multiple instances
 
-Multiple isolated Claude Code profiles via `CLAUDE_CONFIG_DIR` aliases in `~/.zshrc`:
+Multiple isolated Claude Code profiles via `CLAUDE_CONFIG_DIR` functions in `~/.zshrc`:
 
 ```zsh
-alias cc-personal='CLAUDE_CONFIG_DIR=~/.cc-personal command claude'
-alias cc-work='CLAUDE_CONFIG_DIR=~/.cc-work command claude'
+cc-personal() { export CLAUDE_CONFIG_DIR=~/.cc-personal; command claude "$@"; }
+cc-work()     { export CLAUDE_CONFIG_DIR=~/.cc-work;     command claude "$@"; }
 function claude() { echo "Use cc-personal or cc-work instead of claude directly."; }
 ```
 
-Each alias gets its own config directory with separate `settings.json` (API keys, permissions, statusline, MCP servers, etc.). The default `claude` command uses `~/.claude`.
+Each profile gets its own config directory with separate `settings.json` (API keys, permissions, statusline, MCP servers, etc.). The default `claude` command uses `~/.claude`.
 
-The `claude` function stubs out the bare command to prevent accidentally launching Claude without a profile.
+The `claude` function stubs out the bare command to prevent accidentally launching Claude without a profile. (`command claude` bypasses the stub inside the profile functions.)
+
+`CLAUDE_CONFIG_DIR` is the **only** way to point Claude at a different config directory — there is no CLI flag and no `settings.json` key for it (settings live *inside* the config dir). So the env var is the canonical mechanism. These functions **`export`** it, so the terminal becomes sticky to that profile: every later `claude` call, `claude plugin …` subcommand, script, or IDE launched from that terminal inherits it. Each terminal is a separate shell, so different terminals can run different profiles concurrently. To switch a terminal, just run the other function.
 
 To install the statusline into a non-default profile, use the `statusline-setup` agent and specify the target `settings.json` path explicitly.
+
+#### Plugins per profile
+
+Plugins and marketplaces are stored **per profile** under `$CLAUDE_CONFIG_DIR/plugins` (e.g. `~/.cc-personal/plugins`), not in the shared `~/.claude`. Every plugin operation therefore needs `CLAUDE_CONFIG_DIR` set, or it silently falls back to `~/.claude` and fails with:
+
+```
+Failed to install: Source path does not exist: /Users/<you>/.claude/plugins/marketplaces/<marketplace>/plugins/<name>
+```
+
+Install a plugin into a specific profile from the CLI (scriptable, cannot silently fall back):
+
+```zsh
+CLAUDE_CONFIG_DIR=~/.cc-personal command claude plugin install <name>@<marketplace>
+# e.g.
+CLAUDE_CONFIG_DIR=~/.cc-personal command claude plugin install claude-code-setup@claude-plugins-official
+```
+
+Companion commands: `claude plugin list`, `claude plugin uninstall <name>@<marketplace>`. Restart any running session to load a newly installed plugin.
+
+Gotcha: launches from a terminal that never ran a profile function (the IDE/GUI extension started from the Dock, a fresh shell, cron) use the default `~/.claude` and do not pick up `CLAUDE_CONFIG_DIR`; `/ide` is also known not to respect a custom config dir ([claude-code#4739](https://github.com/anthropics/claude-code/issues/4739)). If a `/plugin` install fails pointing at `~/.claude`, it ran without the env var — run a profile function first (it exports the var for the rest of that shell), or use the CLI form above. To make *every* shell default to a profile, optionally add `export CLAUDE_CONFIG_DIR=~/.cc-personal` to `~/.zshenv` (not done by default — it makes one profile the machine-wide default).
 
 ### Claude Code permissions (`~/.claude/settings.json`)
 
