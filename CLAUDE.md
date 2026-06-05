@@ -56,7 +56,7 @@ Pattern:
 - Prefix + `C-c` opens VS Code in current pane path
 - Prefix + `C-z` opens Zed in current pane path
 - Prefix + `Q` kills a session interactively via fzf
-- Status bar: session/window/pane index, current mode, time in Europe/Lisbon and Europe/Warsaw
+- Status bar: session/window/pane index, current mode, a `⌂ <session-home>` indicator when `@home` is set, time in Europe/Lisbon and Europe/Warsaw
 - Plugins via TPM: `tmux-resurrect` (manual save/restore), `tmux-continuum` (auto-save every 15min, auto-restore on start), `tmux-fzf-url` (extract and open URLs)
   - `prefix + Ctrl-s` — save session, `prefix + Ctrl-r` — restore manually
   - `prefix + u` — extract URLs from pane into fzf, select to open in browser
