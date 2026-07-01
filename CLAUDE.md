@@ -157,6 +157,17 @@ The `claude` function stubs out the bare command to prevent accidentally launchi
 
 To install the statusline into a non-default profile, use the `statusline-setup` agent and specify the target `settings.json` path explicitly.
 
+#### Profile badge in the statusline
+
+`claude/statusline-command.sh` renders a colored letter badge from the `CLAUDE_PROFILE_BADGE` env var (format `LETTER:256color-code`), not from matching `CLAUDE_CONFIG_DIR` — that keeps the shared, committed script free of real profile names. Set it alongside `CLAUDE_CONFIG_DIR` in each profile function:
+
+```zsh
+cc-personal() { export CLAUDE_CONFIG_DIR=~/.cc-personal; export CLAUDE_PROFILE_BADGE="P:208"; command claude "$@"; }
+cc-work()     { export CLAUDE_CONFIG_DIR=~/.cc-work;     export CLAUDE_PROFILE_BADGE="W:34";  command claude "$@"; }
+```
+
+If `~/.zshenv` sets a machine-wide default `CLAUDE_CONFIG_DIR` (see below), set a matching default `CLAUDE_PROFILE_BADGE` there too — and use `${VAR:-default}` (not a plain `export VAR=default`) for both, since `.zshenv` is sourced by *every* zsh invocation, including non-interactive ones like the statusline script itself; an unconditional export there would stomp on the value a profile function already exported into the environment.
+
 #### Plugins per profile
 
 Plugins and marketplaces are stored **per profile** under `$CLAUDE_CONFIG_DIR/plugins` (e.g. `~/.cc-personal/plugins`), not in the shared `~/.claude`. Every plugin operation therefore needs `CLAUDE_CONFIG_DIR` set, or it silently falls back to `~/.claude` and fails with:

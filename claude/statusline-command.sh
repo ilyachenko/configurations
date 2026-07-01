@@ -44,10 +44,10 @@ fi
 
 ESC=$'\033'
 profile_label=""
-if [[ "$CLAUDE_CONFIG_DIR" == *cc-personal* ]]; then
-  profile_label="${ESC}[48;5;208m${ESC}[30m P ${ESC}[0m "
-elif [[ "$CLAUDE_CONFIG_DIR" == *cc-intellias* ]]; then
-  profile_label="${ESC}[48;5;34m${ESC}[30m I ${ESC}[0m "
+if [[ -n "$CLAUDE_PROFILE_BADGE" ]]; then
+  badge_letter="${CLAUDE_PROFILE_BADGE%%:*}"
+  badge_color="${CLAUDE_PROFILE_BADGE##*:}"
+  profile_label="${ESC}[48;5;${badge_color}m${ESC}[30m ${badge_letter} ${ESC}[0m "
 fi
 
 git_branch_color=""
